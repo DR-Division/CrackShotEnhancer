@@ -75,7 +75,7 @@ public class ProjectileEvent implements Listener {
                             while (iterator.hasNext()) {
                                 Block block = iterator.next();
                                 for (Entity entity : p.getWorld().getNearbyEntities(block.getLocation(), 0.4, 3, 0.4)) {
-                                    if (entity instanceof LivingEntity && checkRange(entity, p, next)) {
+                                    if (entity instanceof LivingEntity && checkRange(entity, p, start)) {
                                         LivingEntity victim = (LivingEntity) entity;
                                         if (!entities.contains(victim) && entities.size() <= penetrateEvent.getMaxPenetration()) {
                                             entities.add(victim);
@@ -134,9 +134,14 @@ public class ProjectileEvent implements Listener {
         }
     }
 
-    public boolean checkRange(Entity entity, Player shooter, Vector shoot) {
+    public boolean checkRange(Entity entity, Player shooter, Location start) {
+        Vector direction = start.toVector().subtract(shooter.getLocation().toVector()).normalize();
+        Vector upDirection = start.clone().add(new Vector(0,1,0)).toVector().subtract(shooter.getLocation().toVector()).normalize();
         Vector current = entity.getLocation().toVector().subtract(shooter.getLocation().toVector()).normalize();
-        return !(current.dot(shoot) <= 0.996);
+        if (start.distance(entity.getLocation()) < 3)
+            return current.dot(direction) > 0.996 || current.dot(upDirection) > 0.996;
+        else
+            return current.dot(direction) > 0.996;
     }
 
 
