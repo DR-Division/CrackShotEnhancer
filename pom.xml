@@ -73,9 +73,9 @@
             <systemPath>${pom.basedir}/src/main/libs/CrackShot.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>com.shampaggon</groupId>
+            <groupId>com.comphenix.packetwrapper</groupId>
             <artifactId>PacketWrapper</artifactId>
-            <version>0.98.9</version>
+            <version>1.0</version>
             <scope>system</scope>
             <systemPath>${pom.basedir}/src/main/libs/PacketWrapper.jar</systemPath>
         </dependency>
@@ -84,6 +84,7 @@
             <groupId>com.github.azbh111</groupId>
             <artifactId>ProtocolLib</artifactId>
             <version>4.4.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
