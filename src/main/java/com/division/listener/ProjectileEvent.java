@@ -69,8 +69,6 @@ public class ProjectileEvent implements Listener {
                         if (!penetrateEvent.isCancelled() && penetrateEvent.getRange() != 0) {
                             next = start.toVector().subtract(p.getLocation().toVector()).normalize();
                             //블럭 반복을 통한 엔티티 수집 및 관통 구현
-
-
                             BlockIterator iterator = new BlockIterator(p.getWorld(), start.toVector(), next, 1, penetrateEvent.getRange());
                             ArrayList<LivingEntity> entities = new ArrayList<>();
                             while (iterator.hasNext()) {
