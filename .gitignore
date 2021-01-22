@@ -1,0 +1,10 @@
+DeathMatch.iml
+lib\
+.idea
+.idea/
+src/main/java/lib
+target
+dependency-reduced-pom.xml
+out
+CrackShotEnhancer.iml
+libs\
