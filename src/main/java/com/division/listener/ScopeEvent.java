@@ -4,6 +4,7 @@ import com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 import com.division.CEMain;
+import com.division.hook.CSConfigHook;
 import com.division.hook.CrackShotAPI;
 import com.shampaggon.crackshot.events.WeaponReloadEvent;
 import com.shampaggon.crackshot.events.WeaponScopeEvent;
@@ -32,10 +33,13 @@ public class ScopeEvent implements Listener {
         this.Plugin = Plugin;
     }
 
-    @EventHandler
+    @EventHandler (ignoreCancelled = true)
     public void onScope(WeaponScopeEvent event) {
-        setGlow(event.getPlayer(), event.isZoomIn());
-        setExtraScope(event.getPlayer(), event.isZoomIn());
+        CSConfigHook hook = CSConfigHook.getInstance();
+        if (hook.getBoolean(event.getWeaponTitle(), ".Scope.Thermal_Scope"))
+            setGlow(event.getPlayer(), event.isZoomIn());
+        if (hook.getBoolean(event.getWeaponTitle(), ".Scope.Extra_Zoom"))
+            setExtraScope(event.getPlayer(), event.isZoomIn());
     }
 
     //버그 방지

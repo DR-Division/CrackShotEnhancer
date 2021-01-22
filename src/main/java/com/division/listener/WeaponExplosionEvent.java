@@ -1,7 +1,9 @@
 package com.division.listener;
 
+import com.division.events.WeaponDetonateEvent;
 import com.division.events.WeaponPenetrationDamageEvent;
 import com.division.events.WeaponPenetrationEvent;
+import com.division.hook.CSConfigHook;
 import com.division.hook.CrackShotAPI;
 import com.shampaggon.crackshot.CSDirector;
 import com.shampaggon.crackshot.events.WeaponExplodeEvent;
@@ -21,10 +23,17 @@ import java.util.Map;
 public class WeaponExplosionEvent implements Listener {
 
     @EventHandler
+    public void test(WeaponDetonateEvent event) {
+        Bukkit.broadcastMessage("dfdf");
+    }
+
+    @EventHandler
     public void onProjectileExplode(WeaponExplodeEvent event) {
-        CSDirector director = CrackShotAPI.getInstance().getHandle();
-        int radius = director.getInt(event.getWeaponTitle() + ".Explosions.Explosion_Radius");
-        activeC4(event.getLocation(), event.getPlayer(), radius);
+        if (CSConfigHook.getInstance().getBoolean(event.getWeaponTitle(), ".Shooting.Active_C4")) {
+            CSDirector director = CrackShotAPI.getInstance().getHandle();
+            int radius = director.getInt(event.getWeaponTitle() + ".Explosions.Explosion_Radius");
+            activeC4(event.getLocation(), event.getPlayer(), radius);
+        }
     }
 
     private void activeC4(Location target, Player p, int radius) {
@@ -43,11 +52,17 @@ public class WeaponExplosionEvent implements Listener {
                 }
             }
         }
-        for (String key : list.keySet()) {
-            Player t = Bukkit.getPlayer(key);
-            ItemStack stack = CrackShotAPI.getInstance().generateWeapon(list.get(key));
-            CrackShotAPI.getInstance().fixCSError(stack);
-            director.detonateC4(t, stack, list.get(key), "itembomb");
+        if (list.size() != 0) {
+            WeaponDetonateEvent event = new WeaponDetonateEvent(p, target, list);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                for (String key : list.keySet()) {
+                    Player t = Bukkit.getPlayer(key);
+                    ItemStack stack = CrackShotAPI.getInstance().generateWeapon(list.get(key));
+                    CrackShotAPI.getInstance().fixCSError(stack);
+                    director.detonateC4(t, stack, list.get(key), "itembomb");
+                }
+            }
         }
     }
 }

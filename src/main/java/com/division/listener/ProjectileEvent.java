@@ -2,6 +2,7 @@ package com.division.listener;
 
 import com.division.CEMain;
 import com.division.enums.PenetrationType;
+import com.division.events.WeaponDetonateEvent;
 import com.division.events.WeaponPenetrationDamageEvent;
 import com.division.events.WeaponPenetrationEvent;
 import com.division.hook.CSConfigHook;
@@ -61,8 +62,8 @@ public class ProjectileEvent implements Listener {
                         start = event.getHitEntity().getLocation();
                         type = PenetrationType.ENTITY;
                     }
-                    if (actC4) //to-do event 호출하기
-                        activeC4(start, p); //c4 총알 폭파 구현
+                    if (actC4)
+                        activeC4(start.add(new Vector(0,1,0)), p); //c4 총알 폭파 구현
                     if (((entityPenetrate && type == PenetrationType.ENTITY) || (wallPenetrate && type == PenetrationType.BLOCK)) && penetrateRange > 0) {
                         WeaponPenetrationEvent penetrateEvent = new WeaponPenetrationEvent(p, start, type, penetrateRange, maxPenetrate);
                         Bukkit.getPluginManager().callEvent(penetrateEvent);
@@ -73,8 +74,8 @@ public class ProjectileEvent implements Listener {
                             ArrayList<LivingEntity> entities = new ArrayList<>();
                             while (iterator.hasNext()) {
                                 Block block = iterator.next();
-                                for (Entity entity : p.getWorld().getNearbyEntities(block.getLocation(), 0.4, 0.4, 0.4)) {
-                                    if (entity instanceof LivingEntity && checkRange(entity, p, next)) {
+                                for (Entity entity : p.getWorld().getNearbyEntities(block.getLocation(), 0.4, 0.5, 0.4)) {
+                                    if (entity instanceof LivingEntity) {
                                         LivingEntity victim = (LivingEntity) entity;
                                         if (!entities.contains(victim) && entities.size() <= penetrateEvent.getMaxPenetration()) {
                                             entities.add(victim);
@@ -120,17 +121,18 @@ public class ProjectileEvent implements Listener {
                 }
             }
         }
-        for (String key : list.keySet()) {
-            Player t = Bukkit.getPlayer(key);
-            ItemStack stack = CrackShotAPI.getInstance().generateWeapon(list.get(key));
-            CrackShotAPI.getInstance().fixCSError(stack);
-            director.detonateC4(t, stack, list.get(key), "itembomb");
+        if (list.size() != 0) {
+            WeaponDetonateEvent event = new WeaponDetonateEvent(p, target, list);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                for (String key : list.keySet()) {
+                    Player t = Bukkit.getPlayer(key);
+                    ItemStack stack = CrackShotAPI.getInstance().generateWeapon(list.get(key));
+                    CrackShotAPI.getInstance().fixCSError(stack);
+                    director.detonateC4(t, stack, list.get(key), "itembomb");
+                }
+            }
         }
-    }
-
-    public boolean checkRange(Entity entity, Player shooter, Vector shoot) {
-        Vector current = entity.getLocation().toVector().subtract(shooter.getLocation().toVector()).normalize();
-        return !(current.dot(shoot) <= 0.996);
     }
 
     public Location fixLocation(Location value) {
