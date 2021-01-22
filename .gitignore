@@ -2,8 +2,9 @@ DeathMatch.iml
 lib\
 .idea
 .idea/
+src/main/libs/
+src/main/libs\
 src/main/libs
-
 target
 dependency-reduced-pom.xml
 out
