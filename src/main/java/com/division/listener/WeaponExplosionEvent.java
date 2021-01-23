@@ -23,11 +23,6 @@ import java.util.Map;
 public class WeaponExplosionEvent implements Listener {
 
     @EventHandler
-    public void test(WeaponDetonateEvent event) {
-        Bukkit.broadcastMessage("dfdf");
-    }
-
-    @EventHandler
     public void onProjectileExplode(WeaponExplodeEvent event) {
         if (CSConfigHook.getInstance().getBoolean(event.getWeaponTitle(), ".Shooting.Active_C4")) {
             CSDirector director = CrackShotAPI.getInstance().getHandle();
