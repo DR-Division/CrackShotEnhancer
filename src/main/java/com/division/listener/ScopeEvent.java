@@ -1,13 +1,12 @@
 package com.division.listener;
 
-import com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 import com.division.CEMain;
 import com.division.hook.CSConfigHook;
 import com.division.hook.CrackShotAPI;
-import com.shampaggon.crackshot.events.WeaponReloadEvent;
 import com.shampaggon.crackshot.events.WeaponScopeEvent;
+import external.com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;

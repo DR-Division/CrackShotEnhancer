@@ -10,4 +10,6 @@ dependency-reduced-pom.xml
 out
 CrackShotEnhancer.iml
 libs\
-libs\
+src/main/java/external/
+src/main/java/external\
+src/main/java/external

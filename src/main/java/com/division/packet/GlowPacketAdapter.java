@@ -1,11 +1,11 @@
 package com.division.packet;
 
-import com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 import com.division.listener.ScopeEvent;
+import external.com.comphenix.packetwrapper.WrapperPlayServerEntityMetadata;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;

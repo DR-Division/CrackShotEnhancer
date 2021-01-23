@@ -72,13 +72,6 @@
             <scope>system</scope>
             <systemPath>${pom.basedir}/src/main/libs/CrackShot.jar</systemPath>
         </dependency>
-        <dependency>
-            <groupId>com.comphenix.packetwrapper</groupId>
-            <artifactId>PacketWrapper</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/src/main/libs/PacketWrapper.jar</systemPath>
-        </dependency>
         <!-- https://mvnrepository.com/artifact/com.github.azbh111/ProtocolLib -->
         <dependency>
             <groupId>com.github.azbh111</groupId>
@@ -86,6 +79,8 @@
             <version>4.4.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+
     </dependencies>
 
 
