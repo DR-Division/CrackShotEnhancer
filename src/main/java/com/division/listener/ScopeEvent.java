@@ -70,7 +70,7 @@ public class ScopeEvent implements Listener {
         }
         else {
             scopeList.remove(p.getUniqueId());
-            for (Entity entity : p.getWorld().getNearbyEntities(p.getLocation(), distance * distance * distance, distance * distance * distance, distance * distance * distance)) {
+            for (Entity entity : p.getWorld().getNearbyEntities(p.getLocation(), distance * distance + 50, distance * distance + 50, distance * distance + 50)) {
                 if (entity instanceof LivingEntity && entity != p) {
                     WrapperPlayServerEntityMetadata meta = new WrapperPlayServerEntityMetadata();
                     WrappedDataWatcher dataWatcher = WrappedDataWatcher.getEntityWatcher(entity);
