@@ -42,4 +42,17 @@ public class CSConfigHook {
             return director.getInt(weaponTitle + extra);
         return 0;
     }
+
+    public String getString(String weaponTitle, String extra) {
+        CSDirector director = CrackShotAPI.getInstance().getHandle();
+        if (weaponTitle.contains("_")) {
+            //getBoolean("M26",".Shooting.Projectile_Speed") -> M26.Shooting.Projectile_Speed
+            String[] list = weaponTitle.split("_"); //Item_Information: Similar_Use 여부 확인
+            if (director.getBoolean(list[0] + ".Item_Information.Similar_Use"))
+                return director.getString(list[0] + extra);
+        }
+        else
+            return director.getString(weaponTitle + extra);
+        return "";
+    }
 }

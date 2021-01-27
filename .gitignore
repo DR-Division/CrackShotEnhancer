@@ -1,5 +1,5 @@
 .idea
-src/main/libs/
+libs/
 target
 dependency-reduced-pom.xml
 out
