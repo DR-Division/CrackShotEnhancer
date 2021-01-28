@@ -28,7 +28,7 @@ public class Raytrace {
             Block block = iterator.next();
             if (list.size() >= maxPenetrate || !blocks.contains(block.getType().toString()))
                 break;
-            for (Entity entity : world.getNearbyEntities(block.getLocation(), 0.4, 0.4, 0.4)) {
+            for (Entity entity : world.getNearbyEntities(block.getLocation(), 3,3,3)) {
                 if (entity instanceof LivingEntity && entity != shooter && !list.contains(entity)) {
                     Vector center = entity.getLocation().clone().add(new Vector(0,1,0)).subtract(shooter.getEyeLocation()).toVector().normalize();
                     Vector head = entity.getLocation().clone().add(new Vector(0,entity.getHeight(),0)).subtract(shooter.getEyeLocation()).toVector().normalize();

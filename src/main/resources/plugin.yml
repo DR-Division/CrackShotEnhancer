@@ -1,6 +1,6 @@
 main: com.division.CEMain
 name: CrackShotEnhancer
-version: 1.0
+version: 1.5
 depend:
   - CrackShot
   - ProtocolLib

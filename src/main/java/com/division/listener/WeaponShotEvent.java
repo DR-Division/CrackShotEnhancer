@@ -6,6 +6,7 @@ import com.division.util.Raytrace;
 import com.shampaggon.crackshot.events.WeaponDamageEntityEvent;
 import com.shampaggon.crackshot.events.WeaponShootEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -88,8 +89,12 @@ public class WeaponShotEvent implements Listener {
     }
 
     public boolean checkBack(Entity victim, Player shooter) {
-        Vector direction = victim.getLocation().clone().add(new Vector(0, victim.getHeight(), 0)).subtract(shooter.getLocation()).toVector().normalize();
-        Vector vicDirection = victim.getLocation().getDirection();
-        return direction.angle(vicDirection) <= 0.2;
+        Location victimLoc = victim.getLocation();
+        Location directionLoc = victim.getLocation().clone().add(new Vector(0, victim.getHeight(), 0));
+        victimLoc.setPitch(45f);
+        directionLoc.setPitch(45f);
+        Vector vicDirection = victimLoc.getDirection();
+        Vector direction = directionLoc.subtract(shooter.getLocation()).toVector().normalize();
+        return direction.angle(vicDirection) <= 1.1;
     }
 }
