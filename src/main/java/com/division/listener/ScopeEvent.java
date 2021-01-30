@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -39,6 +40,7 @@ public class ScopeEvent implements Listener {
             setGlow(event.getPlayer(), event.isZoomIn());
         if (hook.getBoolean(event.getWeaponTitle(), ".Scope.Extra_Zoom"))
             setExtraScope(event.getPlayer(), event.isZoomIn());
+
     }
 
     //버그 방지
@@ -87,15 +89,15 @@ public class ScopeEvent implements Listener {
         Bukkit.getScheduler().runTaskLater(Plugin, () -> {
             if (value) {
                 p.removePotionEffect(PotionEffectType.SPEED);
-                p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 9999, 1, false, false), true);
-                p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 9999, 15, false, false), true);
-                p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 9999, 255, false, false), false);
+                p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 9999, 10, false, false), true);
+                p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 9999, 200, false, false), false);
                 p.setWalkSpeed(-0.2f);
             }
             else {
                 p.removePotionEffect(PotionEffectType.SLOW);
                 p.removePotionEffect(PotionEffectType.JUMP);
                 p.setWalkSpeed(0.2f);
+                CrackShotAPI.getInstance().getHandle().unscopePlayer(p, true);
             }
         }, 1L);
 

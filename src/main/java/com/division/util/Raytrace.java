@@ -26,7 +26,7 @@ public class Raytrace {
         blocks.add("AIR"); //공기는 통과
         while (iterator.hasNext()) {
             Block block = iterator.next();
-            if (list.size() >= maxPenetrate || !blocks.contains(block.getType().toString()))
+            if (list.size() >= maxPenetrate || (!blocks.contains(block.getType().toString()) && !blocks.contains("ALL")))
                 break;
             for (Entity entity : world.getNearbyEntities(block.getLocation(), 3,3,3)) {
                 if (entity instanceof LivingEntity && entity != shooter && !list.contains(entity)) {
